@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Story Test A</title>
+    <link rel="stylesheet" href="styles5.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Short Story Test A</h1>
+    </header>
+
+    <main class="main-content">
+        <button id="playAudio" class="module-button" onclick="playOnce()">Play Short Story</button>
+        
+        <textarea id="notes" rows="10" cols="50" placeholder="Take notes here..."></textarea>
+        
+        <audio id="storyAudio" src="Short-Story.mp3"></audio>
+        
+        <!-- Submit Buttons Container -->
+        <div class="submit-buttons-container">
+            <button id="submitNotes" class="module-button">Submit Notes</button>
+            <button onclick="window.location.href='modules.html';" class="module-button">Submit</button>
+        </div>
+    </main>
+
+    <script src="test_a.js"></script>
+</body>
+</html>

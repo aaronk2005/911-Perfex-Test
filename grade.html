@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Overview</title>
+    <link rel="stylesheet" href="styles6.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Test Scores</h1>
+    </header>
+
+    <main class="main-content">
+        <div id="score-container">
+            <h2>Individual Test Scores:</h2>
+            <div id="individualScores">
+                <!-- Scores will be dynamically inserted -->
+                <p id="readingAloudTestScore">Reading Aloud Test Score: -- / 24.0</p>
+                <p id="combinationsTestScore">Combinations Test Score: -- / 25.5</p>
+                <p id="shortStoryTestBScore">Short Story Test B Score: -- / 10.0</p>
+                <p id="telephoneTestScore">Telephone Test Score: -- / 11.0</p>
+                <p id="mapIndexTestScore">Map Index Test Score: -- / 10.0</p>
+            </div>
+            <h2>Cumulative Score:</h2>
+            <p id="cumulativeScore">Cumulative Score: -- / --</p>
+            <div id="resultBox"></div>
+        </div>
+        <div class="submit-buttons-container">
+            <button onclick="resetTestAndReturnHome();" class="submit-button">Return Home</button>
+        </div>
+    </main>
+
+    <script src="grading.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const moduleButtons = document.querySelectorAll('.module-button:not(.Grade-test)');
+            let lastCompletedModule = parseInt(sessionStorage.getItem('lastCompletedModule') || '0');
+            updateModuleButtons(lastCompletedModule);
+
+            moduleButtons.forEach((button, index) => {
+                button.addEventListener('click', function(event) {
+                    if (button.classList.contains('locked')) {
+                        event.preventDefault();
+                        return false;
+                    } else {
+                        markModuleAsCompleted(index);
+                    }
+                });
+            });
+
+            function markModuleAsCompleted(index) {
+                sessionStorage.setItem('lastCompletedModule', String(index + 1));
+                updateModuleButtons(index + 1);
+            }
+
+            function updateModuleButtons(lastCompletedModule) {
+                moduleButtons.forEach((button, index) => {
+                    if (index <= lastCompletedModule) {
+                        button.classList.remove('locked');
+                        button.disabled = false;
+                        if (index < lastCompletedModule) {
+                            button.classList.add('completed');
+                        }
+                    } else {
+                        button.classList.add('locked');
+                        button.disabled = true;
+                    }
+                });
+
+                const gradeTestContainer = document.querySelector('.Grade-test-container');
+                if (lastCompletedModule >= moduleButtons.length) {
+                    gradeTestContainer.style.display = 'block';
+                    gradeTestContainer.querySelector('.Grade-test').classList.add('completed');
+                } else {
+                    gradeTestContainer.style.display = 'none';
+                }
+            }
+        });
+
+        function resetTestAndReturnHome() {
+            sessionStorage.clear(); // Clear session storage to reset test progress
+            window.location.href = 'Main.html'; // Redirect to the home page
+        }
+    </script>
+
+</body>
+</html>

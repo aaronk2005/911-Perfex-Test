@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copying Information Test</title>
+    <link rel="stylesheet" href="styles4.css">
+</head>
+<body>
+    <header class="header">
+        <span class="header-title">Copying Information Test</span>
+    </header>
+
+    <main class="main-content">
+        <!-- Letter-Word Combinations -->
+        <audio id="combinationsAudio" src="LetterNumberCombinationsAPSC103.mp3"></audio>
+        <button id="combinationsButton" class="audio-button">Play Letter-Word Combinations</button>
+        <div class="input-group">
+            <input type="text" id="combinationsInput" class="answer-input" placeholder="Enter letter-word combination" autocomplete="off">
+        </div>
+
+        <!-- Phrases and sentences-->
+        <audio id="phrasesAudio" src="PhrasesAndSentences.mp3"></audio>
+        <button id="phrasesButton" class="audio-button" disabled>Play Phrases and Sentences</button>
+        <div class="input-group">
+            <input type="text" id="phrasesInput" class="answer-input" placeholder="Enter phrases and sentences" autocomplete="off" disabled>
+        </div>
+        
+        <!-- Return Button -->
+        <div class="submit-container">
+            <button onclick="window.location.href='modules.html';" class="submit-button">Submit</button>
+        </div>
+    </main>
+
+    <script src="combinations.js"></script>
+</body>
+</html>

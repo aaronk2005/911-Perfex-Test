@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Index Test</title>
+    <link rel="stylesheet" href="styles8.css"> <!-- Ensure your CSS path is correct -->
+</head>
+<body>
+    <header class="header">
+        <span class="header-title">Map Index Test</span>
+    </header>
+
+    <main class="main-content">
+        <audio id="audioPlayer" src="Perfex part 5.mp3"></audio>
+        <button class="audio-button" onclick="document.getElementById('audioPlayer').play()">Play Map Index Audio</button>
+
+        <div class="notes-section">
+            <textarea id="Notes" class="notes-textarea" placeholder="Make note of the streets below; you are permitted to have multiple tabs open..."></textarea>
+        </div>
+
+        <div class="map-images">
+            <img id="mapImage" class="map-image" src="map_photos/map_title.jpg">
+            <div>
+                <button class="map-button" onclick="changeImage('map_photos/map_title.jpg')">Page 1</button>
+                <button class="map-button" onclick="changeImage('map_photos/map_1.jpg')">Page 2</button>
+                <button class="map-button" onclick="changeImage('map_photos/map_3.jpg')">Page 3</button>
+                <button class="map-button" onclick="changeImage('map_photos/map_4.jpg')">Page 4</button>
+            </div>
+        </div>
+
+        <form id="streetForm">
+            <div class="question">
+                <label for="street-1">Street Code 1:</label>
+                <input type="text" id="street-1" class="answer-input">
+                <button type="button" id="street-1-button" class="enter-button">Enter</button>
+            </div>
+            <div class="question">
+                <label for="street-2">Street Code 2:</label>
+                <input type="text" id="street-2" class="answer-input">
+                <button type="button" id="street-2-button" class="enter-button">Enter</button>
+            </div>
+            <div class="question">
+                <label for="street-3">Street Code 3:</label>
+                <input type="text" id="street-3" class="answer-input">
+                <button type="button" id="street-3-button" class="enter-button">Enter</button>
+            </div>
+            <div class="question">
+                <label for="street-4">Street Code 4:</label>
+                <input type="text" id="street-4" class="answer-input">
+                <button type="button" id="street-4-button" class="enter-button">Enter</button>
+            </div>
+        </form>
+        
+        <div class="submit-container">
+            <button class="submit-button" id="mapTestSubmitButton">Submit</button>
+        </div>
+    </main>
+    
+    <script>
+        function changeImage(fileName) {
+            document.getElementById("mapImage").src = fileName;
+        }
+
+        function lockField(inputId, buttonId) {
+            document.getElementById(inputId).disabled = true;
+            document.getElementById(buttonId).disabled = true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const answers = ["18A1", "16B2", "21C3", "44D4"];
+            let score = 0;
+
+            function checkAnswer(inputId, answer) {
+                const userInput = document.getElementById(inputId).value.trim().toUpperCase();
+                if (userInput === answer.toUpperCase()) {
+                    score += 2.5; // Each correct answer now adds 2.5 points to the score
+                }
+                lockField(inputId, inputId + '-button');
+            }
+
+            document.getElementById('mapTestSubmitButton').addEventListener('click', function() {
+                answers.forEach((answer, index) => {
+                    checkAnswer('street-' + (index + 1), answer);
+                });
+
+                localStorage.setItem('mapTestScore', score.toFixed(1)); // Score is stored as a string with one decimal place
+                localStorage.setItem('mapTestComplete', 'true');
+
+                window.location.href = 'modules.html'; // Redirect to the modules page
+            });
+
+            document.querySelectorAll('.enter-button').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    const inputId = event.target.previousElementSibling.id;
+                    lockField(inputId, event.target.id);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
